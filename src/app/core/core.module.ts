@@ -1,15 +1,26 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EnsureModuleLoadedOnceGuard } from './ensure-module-loaded-once.guard';
 import { ApiService } from './services.ts/api.service';
 import { StateService } from './services.ts/state.service';
+import { HandleHttpErrorInterceptor } from './interceptors/handle-http-error.interceptor';
+import { CanActivateGuard } from './guards/canActivate.guard';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
   exports: [HttpClientModule],
   declarations: [],
-  providers: [ApiService , StateService],
+  providers: [
+    ApiService ,
+    StateService,
+    CanActivateGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HandleHttpErrorInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {
   // Ensure that CoreModule is only loaded into AppModule

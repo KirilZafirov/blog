@@ -8,6 +8,7 @@ import { DetailRoutingModule } from './detail-routing.module';
     CommonModule,
     DetailRoutingModule
   ],
-  declarations: [DetailComponent]
+  declarations: [DetailComponent],
+  providers:[]
 })
 export class DetailModule { }

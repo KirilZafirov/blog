@@ -10,33 +10,30 @@ import { ApiService } from './api.service';
 })
 export class StateService {
 
-  private activePost: BehaviorSubject<Post>  = new BehaviorSubject<Post>(null);
   private error: BehaviorSubject<string>  = new BehaviorSubject<string>(null);
-  activePost$: Observable<Post>;
+  private activePost: BehaviorSubject<PostResponse>  = new BehaviorSubject<PostResponse>(null);
+  activePost$: Observable<PostResponse>;
   error$: Observable<string>;
-  constructor(private api: ApiService , private router: Router) {
-    this.activePost$ = this.activePost.asObservable();
+  constructor(private api: ApiService, private router: Router) {
     this.error$ = this.error.asObservable();
+    this.activePost$ = this.activePost.asObservable();
   }
 
   getPost(id: number):Observable<PostResponse> {
     return this.api.get(id).pipe(
       tap((res:PostResponse) => {
+        this.activePost.next(res);
         if(res.status) {
           this.error.next(res.status);
+          this.router.navigateByUrl('/');
         } else {
           this.error.next(null);
-          this.router.navigateByUrl(`detail/${id}`);
         }
-      }),
-      catchError( err => {
-        this.error.next('You are trying to reach a post that does not exist');
-        return throwError(err)
       })
     )
   };
 
-  setActivePost(post: Post): void {
-    this.activePost.next(post);
+  setError(errorMsg: string) {
+    this.error.next(errorMsg);
   }
 }

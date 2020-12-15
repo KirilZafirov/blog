@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/services.ts/api.service';
 import { StateService } from 'src/app/core/services.ts/state.service';
 import { Post, PostFormModel } from 'src/app/models/post.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'blog-home-entry',
@@ -19,7 +20,7 @@ export class HomeEntryComponent implements OnInit {
   });
 
   msg$: Observable<string>;
-  constructor(private state: StateService) { }
+  constructor(private state: StateService, private router: Router) { }
 
   ngOnInit() {
     this.msg$ = this.state.error$.pipe(
@@ -28,6 +29,8 @@ export class HomeEntryComponent implements OnInit {
   }
 
   onSubmit(formValue: PostFormModel) {
-    this.state.getPost(formValue.postId).subscribe();
+    this.state.getPost(formValue.postId).subscribe(() => {
+      this.router.navigateByUrl(`detail/${formValue.postId}`);
+    });
   }
 }
