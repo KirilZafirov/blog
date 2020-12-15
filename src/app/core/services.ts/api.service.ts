@@ -19,6 +19,12 @@ export class ApiService {
 
   get(id: number):Observable<PostResponse> {
     return this.http.get(`${this.baseUrl}posts/${id}`).pipe(
+      map(res => ({
+        userId: 1,
+        id: 2,
+        title: "",
+        body: "null"
+      })),
       map((response:any) => ({
         title: response.title,
         body: response.body

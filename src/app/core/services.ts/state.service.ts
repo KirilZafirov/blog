@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 import { Post, PostResponse } from 'src/app/models/post.model';
 import { ApiService } from './api.service';
 
@@ -21,13 +21,15 @@ export class StateService {
 
   getPost(id: number):Observable<PostResponse> {
     return this.api.get(id).pipe(
-      tap((res:PostResponse) => {
+      filter((res:PostResponse) => {
         this.activePost.next(res);
         if(res.status) {
           this.error.next(res.status);
           this.router.navigateByUrl('/');
+          return false;
         } else {
           this.error.next(null);
+          return true;
         }
       })
     )

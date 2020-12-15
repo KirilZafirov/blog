@@ -1,6 +1,9 @@
+<button type="button" (click)="goBack()">
+  Back
+</button>
 <ng-container *ngIf="post$ | async as post else loading">
   {{post.title}}
-  {{post.body}}
+  <input type="text" [value]="post.body" disabled/>
 </ng-container>
 
 <ng-template #loading>

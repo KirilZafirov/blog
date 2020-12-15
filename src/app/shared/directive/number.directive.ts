@@ -4,8 +4,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
     selector: 'input[type="number"]'
 })
 export class NumberOnlyDirective {
-    // Allow decimal numbers. The \. is only allowed once to occur
-    private regex: RegExp = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g);
+    private regex: RegExp = new RegExp(/^([0-9]*)/g);
 
     // Allow key codes for special events. Reflect :
     // Backspace, tab, end, home
