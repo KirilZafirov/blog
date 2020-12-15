@@ -5,7 +5,6 @@ import { EnsureModuleLoadedOnceGuard } from './ensure-module-loaded-once.guard';
 import { ApiService } from './services.ts/api.service';
 import { StateService } from './services.ts/state.service';
 import { HandleHttpErrorInterceptor } from './interceptors/handle-http-error.interceptor';
-import { CanActivateGuard } from './guards/canActivate.guard';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
@@ -14,7 +13,6 @@ import { CanActivateGuard } from './guards/canActivate.guard';
   providers: [
     ApiService ,
     StateService,
-    CanActivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HandleHttpErrorInterceptor,

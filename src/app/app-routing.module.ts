@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
-import { CanActivateGuard } from './core/guards/canActivate.guard';
 import { HomeEntryComponent } from './features/home-entry/home-entry/home-entry.component';
 const routerOptions: ExtraOptions = {
   enableTracing: true,
@@ -20,8 +19,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/detail/detail.module').then(
         (m) => m.DetailModule
-      ),
-    canActivate:[CanActivateGuard]
+      )
   },
   {
     path: '**',
