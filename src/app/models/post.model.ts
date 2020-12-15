@@ -1,4 +1,7 @@
-
+export interface PostResponse {
+  post: Post,
+  status: string;
+}
 export interface Post {
   title: string;
   body: string;
@@ -7,3 +10,4 @@ export interface Post {
 export interface PostFormModel {
   postId: number;
 }
+

@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { StateService } from 'src/app/core/services.ts/state.service';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'blog-detail',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private state: StateService) { }
 
+  post$: Observable<Post>;
   ngOnInit() {
+   this.post$ = this.state.activePost$
   }
 
 }

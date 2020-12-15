@@ -1,7 +1,11 @@
+import { PostResponse } from './../../../models/post.model';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/services.ts/api.service';
-import { PostFormModel } from 'src/app/models/post.model';
+import { StateService } from 'src/app/core/services.ts/state.service';
+import { Post, PostFormModel } from 'src/app/models/post.model';
 
 @Component({
   selector: 'blog-home-entry',
@@ -14,13 +18,16 @@ export class HomeEntryComponent implements OnInit {
     postId: new FormControl(null , [Validators.required , Validators.min(0)]),
   });
 
-  constructor(private api: ApiService) { }
+  msg$: Observable<string>;
+  constructor(private state: StateService) { }
 
   ngOnInit() {
+    this.msg$ = this.state.error$.pipe(
+      tap(() => this.form.get('postId').patchValue(null))
+    );
   }
 
   onSubmit(formValue: PostFormModel) {
-    this.api.get(formValue.postId);
-    this.form.get('postId').patchValue(null);
+    this.state.getPost(formValue.postId).subscribe();
   }
 }
