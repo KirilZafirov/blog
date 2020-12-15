@@ -1,0 +1,10 @@
+
+<form (submit)="onSubmit(form.value)" [formGroup]="form">
+  <input
+    placeholder="search for post id"
+    type="number"
+    formControlName="postId"
+  />
+  <button type="submit" [disabled]="form.status === 'INVALID'">Submit</button>
+  <button type="reset" [disabled]="!form.get('postId').value">Reset</button>
+</form>
