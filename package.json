@@ -8,7 +8,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -w -s"
+    "gencode": "ng test --code-coverage",
+    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -w -s",
+    "build:stats": "ng build --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/blog/stats.json",
+    "maps":"ng build --prod --source-map",
+    "map-main": "source-map-explorer dist/blog/main.*.js"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +26,9 @@
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
     "rxjs": "~6.6.0",
+    "source-map-explorer": "^2.5.1",
     "tslib": "^2.0.0",
+    "webpack-bundle-analyzer": "^4.2.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
