@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
 export class HandleHttpErrorInterceptor implements HttpInterceptor {
   constructor(private state: StateService , private router: Router) {}
 
+  /**
+   * Intercept each http error and for each error fill the state error msg
+   */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {

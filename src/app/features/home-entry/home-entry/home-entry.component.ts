@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { StateService } from 'src/app/core/services.ts/state.service';
 import { PostFormModel } from 'src/app/models/post.model';
-import { Router } from '@angular/router';
-
 @Component({
   selector: 'blog-home-entry',
   templateUrl: './home-entry.component.html',
@@ -14,19 +12,47 @@ import { Router } from '@angular/router';
 })
 export class HomeEntryComponent implements OnInit {
 
+  /**
+   * Form group that is going to catch the user request to the a certain post with and id of integer
+   */
+
   form: FormGroup = new FormGroup({
     postId: new FormControl(null , [Validators.required , Validators.min(0)]),
   });
 
-  msg$: Observable<string>;
-  constructor(private state: StateService, private router: Router) { }
 
+  /**
+   * Observable that is meant to catch if there is any error with that request or that something went wrong while making the request
+   */
+  msg$: Observable<string>;
+
+
+  /**
+   * Constructor
+   */
+  constructor(private state: StateService) { }
+
+
+  /**
+   * Initialize the msg$ Observable and each time there is an error with the request update the formValue of postId with null
+   * so that the user does not have to clear the value by himself
+   */
   ngOnInit() {
     this.msg$ = this.state.error$.pipe(
       tap(() => this.form.get('postId').patchValue(null))
     );
   }
 
+
+  /**
+   * Submit function that handles the form submit event.
+   *
+   * It makes a call to the api to check if the post is valid.
+   *
+   * If the post is valid we should be successfully redirected to the detail page of the post
+   *
+   * *Note: We do not need to unsubscribe from this observable because it happens only once.
+   */
   onSubmit(formValue: PostFormModel) {
     this.state.isValid(formValue.postId).subscribe();
   }

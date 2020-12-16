@@ -11,12 +11,21 @@ import { StateService } from './state.service';
   providedIn: 'root'
 })
 export class ApiService {
-
+ /**
+ * Get the base url from the environment file
+ */
   baseUrl = environment.baseUrl;
 
   constructor(protected http: HttpClient) {
   }
 
+   /**
+   * Get the post by id: number/numeric value.
+   *
+   * Map the response to only what we need displayed in the view which is Title and Body ,
+   *
+   * Map the post to a certain PostResponse with post and status if it is valid or if it is not to display the message why is not.
+   */
   get(id: number):Observable<PostResponse> {
     return this.http.get(`${this.baseUrl}posts/${id}`).pipe(
       map((response:any) => ({
