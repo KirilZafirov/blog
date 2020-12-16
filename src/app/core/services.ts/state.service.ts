@@ -35,6 +35,22 @@ export class StateService {
     )
   };
 
+  isValid(id: number):Observable<boolean> {
+    return this.api.get(id).pipe(
+      map((res:PostResponse) => {
+        this.activePost.next(res);
+        if(res.status) {
+          this.error.next(res.status);
+          return false;
+        } else {
+          this.error.next(null);
+          return true;
+        }
+      }),
+      filter(isValid => isValid),
+      tap(() => this.router.navigateByUrl(`detail/${id}`))
+    )
+  };
   setError(errorMsg: string) {
     this.error.next(errorMsg);
   }

@@ -28,8 +28,6 @@ export class HomeEntryComponent implements OnInit {
   }
 
   onSubmit(formValue: PostFormModel) {
-    this.state.getPost(formValue.postId).subscribe(() => {
-      this.router.navigateByUrl(`detail/${formValue.postId}`);
-    });
+    this.state.isValid(formValue.postId).subscribe();
   }
 }

@@ -19,19 +19,13 @@ export class ApiService {
 
   get(id: number):Observable<PostResponse> {
     return this.http.get(`${this.baseUrl}posts/${id}`).pipe(
-      map(res => ({
-        userId: 1,
-        id: 2,
-        title: "",
-        body: "null"
-      })),
       map((response:any) => ({
         title: response.title,
         body: response.body
       })),
       map(post =>  ({
         post: post,
-        status: (!post.body || !post.title) ? 'Both title and body fields should exist' : null
+        status: (!post.body ||!post.body.trim() || !post.title || !post.title.trim()) ? 'Both title and body fields should exist' : null
       }))
     );
   }
