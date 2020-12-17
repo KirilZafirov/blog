@@ -13,7 +13,7 @@
     "start:prod": "npx serve -s ./dist/blog",
     "build:stats": "ng build --stats-json",
     "analyze": "webpack-bundle-analyzer dist/blog/stats.json",
-    "maps":"ng build --prod --source-map",
+    "maps": "ng build --prod --source-map",
     "map-main": "source-map-explorer dist/blog/main.*.js"
   },
   "private": true,
@@ -26,6 +26,7 @@
     "@angular/platform-browser": "~11.0.0",
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
+    "@angular/service-worker": "~11.0.0",
     "rxjs": "~6.6.0",
     "source-map-explorer": "^2.5.1",
     "tslib": "^2.0.0",
