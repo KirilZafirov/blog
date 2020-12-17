@@ -10,6 +10,7 @@
     "e2e": "ng e2e",
     "gencode": "ng test --code-coverage",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -w -s",
+    "start:prod": "npx serve -s ./dist/blog",
     "build:stats": "ng build --stats-json",
     "analyze": "webpack-bundle-analyzer dist/blog/stats.json",
     "maps":"ng build --prod --source-map",

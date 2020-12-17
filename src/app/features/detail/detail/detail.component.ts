@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { Component, HostListener } from '@angular/core';
 import { StateService } from 'src/app/core/services.ts/state.service';
 import { Post } from 'src/app/models/post.model';
-import { concatMap, map, switchMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { Keys } from 'src/app/models/keys.model';
 @Component({
   selector: 'blog-detail',
   templateUrl: './detail.component.html',
@@ -46,8 +47,9 @@ export class DetailComponent {
    */
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-     if(event.key === 'Escape' || event.key === 'Backspace') {
+     if(event.key === Keys.ESCAPE || event.key === Keys.BACKSPACE) {
       this.location.back();
      }
   }
 }
+
