@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { StateService } from 'src/app/core/services.ts/state.service';
+import { UiMetaService } from 'src/app/core/services.ts/ui-meta.service';
 import { PostFormModel } from 'src/app/models/post.model';
 @Component({
   selector: 'blog-home-entry',
@@ -29,8 +30,15 @@ export class HomeEntryComponent implements OnInit {
 
   /**
    * Constructor
+   *
+   * Use the UiMetaService in order to setup meta tags information about the page
    */
-  constructor(private state: StateService) { }
+  constructor(private state: StateService ,  private uiMeta: UiMetaService) {
+    this.uiMeta.setMetaData({
+      title: 'Blog post finder',
+      description: 'You can search for a blog post by id and see if you can find anything that you like!'
+  })
+   }
 
 
   /**

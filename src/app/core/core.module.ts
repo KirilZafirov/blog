@@ -5,6 +5,7 @@ import { EnsureModuleLoadedOnceGuard } from './ensure-module-loaded-once.guard';
 import { ApiService } from './services.ts/api.service';
 import { StateService } from './services.ts/state.service';
 import { HandleHttpErrorInterceptor } from './interceptors/handle-http-error.interceptor';
+import { UiMetaService } from './services.ts/ui-meta.service';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
@@ -13,6 +14,7 @@ import { HandleHttpErrorInterceptor } from './interceptors/handle-http-error.int
   providers: [
     ApiService ,
     StateService,
+    UiMetaService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HandleHttpErrorInterceptor,

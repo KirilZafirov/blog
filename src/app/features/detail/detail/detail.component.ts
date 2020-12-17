@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { Component, HostListener } from '@angular/core';
 import { StateService } from 'src/app/core/services.ts/state.service';
 import { Post } from 'src/app/models/post.model';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap, map, tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Keys } from 'src/app/models/keys.model';
+import { UiMetaService } from 'src/app/core/services.ts/ui-meta.service';
 @Component({
   selector: 'blog-detail',
   templateUrl: './detail.component.html',
@@ -26,15 +27,22 @@ export class DetailComponent {
    *  When we get the param id from the route param we make request to get the active post details
    *
    * and we are mapping the PostResponse to be of type post
+   *
+   * Use the UiMetaService in order to setup meta tags information about the page
    */
-  constructor(private state: StateService , private route : ActivatedRoute , private location: Location) {
+  constructor(private state: StateService , private route : ActivatedRoute , private location: Location , private uiMeta: UiMetaService) {
     this.post$ = this.route.paramMap.pipe(
         map((params: ParamMap) => +params.get('id')),
         concatMap((id) => this.state.getPost(id)),
-        map((post: PostResponse) => post.post)
+        map((post: PostResponse) => post.post),
+        tap(post => {
+            this.uiMeta.setMetaData({
+              title: post.title,
+              description: post.body
+          })
+        })
       )
   }
-
    /**
    * Use location service to navigate back
    */
