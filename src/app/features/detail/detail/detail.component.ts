@@ -1,7 +1,7 @@
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostResponse } from './../../../models/post.model';
 import { Observable } from 'rxjs';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { StateService } from 'src/app/core/services.ts/state.service';
 import { Post } from 'src/app/models/post.model';
 import { concatMap, map, switchMap } from 'rxjs/operators';
@@ -39,5 +39,15 @@ export class DetailComponent {
    */
   goBack() {
     this.location.back();
+  }
+
+  /**
+   * If the user presses escape button on the keyboard or presses the backwards key navigate him back
+   */
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+     if(event.key === 'Escape' || event.key === 'Backspace') {
+      this.location.back();
+     }
   }
 }

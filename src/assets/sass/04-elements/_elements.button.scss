@@ -1,0 +1,54 @@
+button {
+  cursor: pointer;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+  0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  background-image: linear-gradient(
+    to right bottom,
+    rgb(235, 243, 250, 0.4),
+    rgb(233, 241, 251, 0.4),
+    rgb(231, 239, 251, 0.4),
+    rgb(231, 239, 251, 0.4),
+    rgb(230, 235, 252, 0.4),
+    rgb(223, 229, 252, 0.4),
+    rgb(217, 223, 252, 0.4),
+    rgb(217, 223, 252, 0.4),
+    rgb(193, 207, 253, 0.4),
+    rgb(173, 198, 253, 0.4),
+    rgb(149, 189, 254, 0.4),
+    rgb(119, 181, 254, 0.4)
+  );
+}
+
+button:disabled,
+button[disabled]{
+  cursor: not-allowed;
+}
+
+button[type="reset"] {
+  border: none;
+  background: none;
+  justify-content: center;
+  text-align: center;
+  margin-left: -25px;
+  background-image:none;
+  box-shadow:none;
+}
+button[type="submit"] {
+  border: none;
+  max-width: 50px;
+  border-radius: 25px;
+  min-height: 30px;
+}
+
+.btn-back {
+  position: absolute;
+  top: 45px;
+  left: 25px;
+  border-radius: 50%;
+  border: none;
+  height: 50px;
+  width: 50px;
+   > svg {
+    margin-top: 5px;
+  }
+}

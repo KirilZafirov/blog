@@ -1,0 +1,25 @@
+$bg-color: #F7F8FC;
+
+body {
+  height: 100%;
+  color: $font-primary;
+  background-image: linear-gradient(
+    to left top,
+    #77b5fe,
+    #95bdfe,
+    #adc6fd,
+    #c1cffd,
+    #ebf3fa,
+    #e9f1fb,
+    #e7effb,
+    #e6edfc,
+    #e6ebfc,
+    #dfe5fc,
+    #d9dffc,
+    #d3d9fc,
+    #c1cffd,
+    #adc6fd,
+    #95bdfe,
+    #77b5fe
+  ) !important;
+}
