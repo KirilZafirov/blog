@@ -34,7 +34,6 @@ export class DetailComponent {
     this.post$ = this.route.paramMap.pipe(
         map((params: ParamMap) => +params.get('id')),
         concatMap((id) => this.state.getPost(id)),
-        map((post: PostResponse) => post.post),
         tap(post => {
             this.uiMeta.setMetaData({
               title: post.title,

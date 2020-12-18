@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Keys } from 'src/app/models/keys.model';
    /**
    * Directive in order to escape various use cases where a user can enter value different then a number
    *
@@ -18,7 +19,7 @@ export class NumberOnlyDirective {
      *
      * Backspace, tab, end, home
      */
-    private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home' ];
+    private specialKeys: Array<string> = [ Keys.BACKSPACE , Keys.TAB, Keys.END, Keys.HOME, Keys.KeyE];
 
     constructor(private el: ElementRef) {}
 

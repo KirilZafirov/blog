@@ -1,8 +1,9 @@
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
-import { Post, PostResponse } from 'src/app/models/post.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
+import { Post } from 'src/app/models/post.model';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -11,12 +12,10 @@ import { ApiService } from './api.service';
 export class StateService {
 
   private error: BehaviorSubject<string>  = new BehaviorSubject<string>(null);
-  private activePost: BehaviorSubject<PostResponse>  = new BehaviorSubject<PostResponse>(null);
-  activePost$: Observable<PostResponse>;
   error$: Observable<string>;
+
   constructor(private api: ApiService, private router: Router) {
     this.error$ = this.error.asObservable();
-    this.activePost$ = this.activePost.asObservable();
   }
     /**
    * Use the Api Service to Get the post by id: number/numeric value.
@@ -27,12 +26,11 @@ export class StateService {
    *
    *  If there is no status message empty the error message and let the observable pass!
    */
-  getPost(id: number):Observable<PostResponse> {
+  getPost(id: number):Observable<Post> {
     return this.api.get(id).pipe(
-      filter((res:PostResponse) => {
-        this.activePost.next(res);
-        if(res.status) {
-          this.error.next(res.status);
+      filter((post:Post) => {
+        if((!post.body ||!post.body.trim() || !post.title || !post.title.trim())) {
+          this.error.next('Both title and body fields should exist');
           this.router.navigateByUrl('/');
           return false;
         } else {
@@ -54,10 +52,9 @@ export class StateService {
    */
   isValid(id: number):Observable<boolean> {
     return this.api.get(id).pipe(
-      map((res:PostResponse) => {
-        this.activePost.next(res);
-        if(res.status) {
-          this.error.next(res.status);
+      map((post:Post) => {
+        if((!post.body ||!post.body.trim() || !post.title || !post.title.trim())) {
+          this.error.next('Both title and body fields should exist');
           return false;
         } else {
           this.error.next(null);
